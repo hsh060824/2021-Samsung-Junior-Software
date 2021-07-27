@@ -249,7 +249,9 @@ def run():
 					x = []
 					# compute the sum of total people inside
 					x.append(len(empty1)-len(empty))
+					#이 지점보다 밑에 있는 x는 안에 있는 사람 수
 					#print("Total people inside:", x)
+					#이 지점의 위치(이름, 위도, 경도) + x
 
 
 			# store the trackable object in our dictionary
