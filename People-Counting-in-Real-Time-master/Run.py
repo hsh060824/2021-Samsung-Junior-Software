@@ -9,9 +9,9 @@ import numpy as np
 import argparse, imutils
 import time, dlib, cv2, datetime
 from itertools import zip_longest
+import firebase_run as fr
 
 t0 = time.time()
-
 def run():
 
 	# construct the argument parse and parse the arguments
@@ -54,7 +54,6 @@ def run():
 
 	# initialize the video writer (we'll instantiate later if need be)
 	writer = None
-
 	# initialize the frame dimensions (we'll set them as soon as we read
 	# the first frame from the video)
 	W = None
@@ -245,13 +244,15 @@ def run():
 								print("[INFO] Alert sent")
 
 						to.counted = True
-						
+
 					x = []
 					# compute the sum of total people inside
 					x.append(len(empty1)-len(empty))
-					#ÀÌ ÁöÁ¡º¸´Ù ¹Ø¿¡ ÀÖ´Â x´Â ¾È¿¡ ÀÖ´Â »ç¶÷ ¼ö
+					fr.push(x)
+
+					#ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¿ï¿½ ï¿½Ö´ï¿½ xï¿½ï¿½ ï¿½È¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 					#print("Total people inside:", x)
-					#ÀÌ ÁöÁ¡ÀÇ À§Ä¡(ÀÌ¸§, À§µµ, °æµµ) + x
+					#ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡(ï¿½Ì¸ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½æµµ) + x
 
 
 			# store the trackable object in our dictionary
@@ -329,7 +330,7 @@ def run():
 	# # otherwise, release the video file pointer
 	# else:
 	# 	vs.release()
-	
+
 	# issue 15
 	if config.Thread:
 		vs.release()
