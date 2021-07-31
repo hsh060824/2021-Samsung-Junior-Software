@@ -248,12 +248,11 @@ def run():
 					x = []
 					# compute the sum of total people inside
 					x.append(len(empty1)-len(empty))
-					fr.push(x)
+					x_int = int(x[0])
+					#print(x_int)
+					fr.push(x_int, len(empty1), len(empty), "하남 스타필드")
 
-					#�� �������� �ؿ� �ִ� x�� �ȿ� �ִ� ���� ��
 					#print("Total people inside:", x)
-					#�� ������ ��ġ(�̸�, ����, �浵) + x
-
 
 			# store the trackable object in our dictionary
 			trackableObjects[objectID] = to
@@ -342,9 +341,9 @@ def run():
 ##learn more about different schedules here: https://pypi.org/project/schedule/
 if config.Scheduler:
 	##Runs for every 1 second
-	#schedule.every(1).seconds.do(run)
+	schedule.every(0.5).seconds.do(run)
 	##Runs at every day (9:00 am). You can change it.
-	schedule.every().day.at("9:00").do(run)
+	#schedule.every().day.at("9:00").do(run)
 
 	while 1:
 		schedule.run_pending()
