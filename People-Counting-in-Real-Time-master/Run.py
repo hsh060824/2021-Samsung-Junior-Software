@@ -10,10 +10,11 @@ import argparse, imutils
 import time, dlib, cv2, datetime
 from itertools import zip_longest
 import firebase_run as fr
+import tkinter as tk
 
+#people-real-time
 t0 = time.time()
 def run():
-
 	# construct the argument parse and parse the arguments
 	ap = argparse.ArgumentParser()
 	ap.add_argument("-p", "--prototxt", required=False,
@@ -249,8 +250,8 @@ def run():
 					# compute the sum of total people inside
 					x.append(len(empty1)-len(empty))
 					x_int = int(x[0])
-					#print(x_int)
-					fr.push(x_int, len(empty1), len(empty), "하남 스타필드")
+					print(name)
+					fr.push(x_int, len(empty1), len(empty), name)
 
 					#print("Total people inside:", x)
 
@@ -337,16 +338,40 @@ def run():
 	# close any open windows
 	cv2.destroyAllWindows()
 
-
 ##learn more about different schedules here: https://pypi.org/project/schedule/
-if config.Scheduler:
-	##Runs for every 1 second
-	schedule.every(0.5).seconds.do(run)
-	##Runs at every day (9:00 am). You can change it.
-	#schedule.every().day.at("9:00").do(run)
+def ConfScheduler():
+	if config.Scheduler:
+		##Runs for every 1 second
+		schedule.every(0.5).seconds.do(run)
+		##Runs at every day (9:00 am). You can change it.
+		#schedule.every().day.at("9:00").do(run)
 
-	while 1:
-		schedule.run_pending()
+		while 1:
+			schedule.run_pending()
 
-else:
-	run()
+	else:
+		run()
+
+import tkinter as tk
+
+def get_text():
+	global name
+	name = text_entry1.get()
+	#print(name)
+	ConfScheduler()
+
+root = tk.Tk()
+root.geometry("320x240")
+root.title("Test Tkinter")
+
+frame = tk.Frame(root)
+frame.pack()
+
+text_entry1 = tk.Entry(frame, width = 30, bg = 'light blue')
+text_entry1.insert(0,"insert first text")
+text_entry1.pack(pady = 15)
+
+button = tk.Button(frame, text = 'Get Text', command = get_text)
+button.pack(pady = 20)
+
+root.mainloop()
